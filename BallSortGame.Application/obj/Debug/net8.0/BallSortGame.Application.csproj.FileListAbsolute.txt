@@ -1,0 +1,15 @@
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Debug\net8.0\BallSortGame.Application.deps.json
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Debug\net8.0\BallSortGame.Application.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Debug\net8.0\BallSortGame.Application.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Debug\net8.0\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Debug\net8.0\BallSortGame.Core.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.csproj.AssemblyReference.cache
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.AssemblyInfoInputs.cache
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.AssemblyInfo.cs
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.csproj.CoreCompileInputs.cache
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSort.56531C71.Up2Date
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\refint\BallSortGame.Application.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\BallSortGame.Application.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Application\obj\Debug\net8.0\ref\BallSortGame.Application.dll

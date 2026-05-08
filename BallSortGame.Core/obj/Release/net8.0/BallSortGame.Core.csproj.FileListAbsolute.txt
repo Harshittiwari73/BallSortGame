@@ -1,0 +1,11 @@
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\BallSortGame.Core.deps.json
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\BallSortGame.Core.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.AssemblyInfoInputs.cache
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.AssemblyInfo.cs
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.csproj.CoreCompileInputs.cache
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\refint\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\BallSortGame.Core.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Core\obj\Release\net8.0\ref\BallSortGame.Core.dll

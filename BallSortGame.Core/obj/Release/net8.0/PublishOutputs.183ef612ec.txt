@@ -1,0 +1,3 @@
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\publish\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\publish\BallSortGame.Core.deps.json
+E:\Learn\BallSortGame\backend\BallSortGame.Core\bin\Release\net8.0\publish\BallSortGame.Core.pdb

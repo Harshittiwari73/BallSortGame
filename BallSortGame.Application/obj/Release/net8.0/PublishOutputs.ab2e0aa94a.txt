@@ -1,0 +1,14 @@
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BallSortGame.Application.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BallSortGame.Application.deps.json
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BallSortGame.Application.pdb
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BCrypt.Net-Next.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.Abstractions.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.Logging.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.Protocols.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\Microsoft.IdentityModel.Tokens.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\System.IdentityModel.Tokens.Jwt.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BallSortGame.Core.dll
+E:\Learn\BallSortGame\backend\BallSortGame.Application\bin\Release\net8.0\publish\BallSortGame.Core.pdb
