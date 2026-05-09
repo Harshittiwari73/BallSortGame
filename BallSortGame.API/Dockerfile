@@ -1,10 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY backend/BallSortGame.API ./BallSortGame.API
-COPY backend/BallSortGame.Application ./BallSortGame.Application
-COPY backend/BallSortGame.Core ./BallSortGame.Core
-COPY backend/BallSortGame.Infrastructure ./BallSortGame.Infrastructure
+COPY BallSortGame.API ./BallSortGame.API
+COPY BallSortGame.Application ./BallSortGame.Application
+COPY BallSortGame.Core ./BallSortGame.Core
+COPY BallSortGame.Infrastructure ./BallSortGame.Infrastructure
 
 WORKDIR /src/BallSortGame.API
 
