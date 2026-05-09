@@ -11,29 +11,34 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // ============================================
-// DATABASE - SQL Server
+// DATABASE CONFIGURATION
 // ============================================
+
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 else
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 
 // ============================================
-// DEPENDENCY INJECTION - Repository Pattern
+// DEPENDENCY INJECTION - REPOSITORIES
 // ============================================
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILevelRepository, LevelRepository>();
 builder.Services.AddScoped<IScoreRepository, ScoreRepository>();
 
 // ============================================
-// DEPENDENCY INJECTION - Application Services
+// DEPENDENCY INJECTION - SERVICES
 // ============================================
+
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<LevelService>();
 builder.Services.AddScoped<ScoreService>();
@@ -42,9 +47,15 @@ builder.Services.AddScoped<UserService>();
 // ============================================
 // JWT AUTHENTICATION
 // ============================================
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "BallSortGameSuperSecretKey2024!@#$%^&*()";
-var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "BallSortGameAPI";
-var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "BallSortGameClient";
+
+var jwtKey = builder.Configuration["Jwt:Key"]
+             ?? "BallSortGameSuperSecretKey2024!@#$%^&*()";
+
+var jwtIssuer = builder.Configuration["Jwt:Issuer"]
+                ?? "BallSortGameAPI";
+
+var jwtAudience = builder.Configuration["Jwt:Audience"]
+                  ?? "BallSortGameClient";
 
 builder.Services.AddAuthentication(options =>
 {
@@ -59,31 +70,42 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+
         ValidIssuer = jwtIssuer,
         ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwtKey))
     };
 });
 
 // ============================================
-// CORS - Allow frontend
+// CORS
 // ============================================
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
 // ============================================
-// CONTROLLERS & SWAGGER
+// CONTROLLERS
 // ============================================
+
 builder.Services.AddControllers();
+
+// ============================================
+// SWAGGER
+// ============================================
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -93,10 +115,9 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Backend API for Ball Sort Puzzle Game"
     });
 
-    // JWT auth in Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header. Example: \"Bearer {token}\"",
+        Description = "JWT Authorization header using the Bearer scheme.",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -122,29 +143,59 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // ============================================
-// MIDDLEWARE PIPELINE
+// SWAGGER ENABLED FOR ALL ENVIRONMENTS
 // ============================================
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ball Sort Game API v1");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ball Sort Game API v1");
+});
+
+// ============================================
+// MIDDLEWARE
+// ============================================
 
 app.UseCors("AllowFrontend");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
-app.MapControllers();
 
 // ============================================
-// AUTO-MIGRATE DATABASE ON STARTUP
+// ROUTES
 // ============================================
+
+app.MapControllers();
+
+// Homepage route
+app.MapGet("/", () =>
+{
+    return Results.Ok("BallSortGame API is running successfully!");
+});
+
+// ============================================
+// DATABASE AUTO CREATE
+// ============================================
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
     db.Database.EnsureCreated();
 }
-app.Urls.Add("http://0.0.0.0:8080");
+
+// ============================================
+// PORT CONFIGURATION FOR RENDER
+// ============================================
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
+app.Urls.Add($"http://0.0.0.0:{port}");
+
+// ============================================
+// RUN APP
+// ============================================
+
 app.Run();
