@@ -30,31 +30,15 @@ const GameScreen: React.FC = () => {
   }, [isPlaying, isWon, dispatch]);
 
   return (
-    <div
-      className="game-bg overflow-x-hidden"
-      style={{
-        minHeight: '100dvh',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowX: 'hidden',
-      }}
-    >
+    <div className="game-bg min-h-[100dvh] flex flex-col overflow-hidden">
       <Header />
 
       {/* Game board centered with flex-1 to fill remaining space */}
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflowX: 'hidden',
-          width: '100%',
-        }}
-      >
+      <div className="flex-1 flex flex-col items-center justify-center overflow-hidden w-full relative">
         <GameBoard />
-        <GameControls />
+        <div className="w-full max-w-md px-2 sm:px-4 pb-4">
+           <GameControls />
+        </div>
       </div>
 
       {/* Win modal */}

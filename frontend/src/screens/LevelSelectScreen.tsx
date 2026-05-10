@@ -47,49 +47,21 @@ const LevelSelectScreen: React.FC = () => {
   };
 
   return (
-    <div
-      className="game-bg overflow-x-hidden"
-      style={{
-        minHeight: '100dvh',
-        padding: 'clamp(16px, 4vw, 32px) clamp(12px, 3.5vw, 16px)',
-        overflowX: 'hidden',
-      }}
-    >
-      <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+    <div className="game-bg min-h-[100dvh] overflow-x-hidden p-4 sm:p-6 lg:p-8">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(10px, 3vw, 16px)',
-            marginBottom: 'clamp(16px, 4.5vw, 28px)',
-            flexWrap: 'wrap',
-          }}
-        >
-          <button onClick={() => navigate('/')} className="btn-icon">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <button onClick={() => navigate('/')} className="btn-icon w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0">
             ←
           </button>
           <h1
-            className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
-            style={{
-              fontFamily: 'Outfit, sans-serif',
-              fontSize: 'clamp(1.4rem, 7vw, 2rem)',
-              fontWeight: 700,
-              flex: 1,
-            }}
+            className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold text-2xl sm:text-3xl flex-1 min-w-[150px]"
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Select Level
           </h1>
-          <div
-            className="glass-card"
-            style={{
-              padding: 'clamp(4px, 1.5vw, 6px) clamp(10px, 3vw, 14px)',
-              fontSize: 'clamp(11px, 2.8vw, 14px)',
-              fontWeight: 500,
-              flexShrink: 0,
-            }}
-          >
-            Progress: <span style={{ color: '#a78bfa' }}>{currentLevel - 1}</span> / 500
+          <div className="glass-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium flex-shrink-0 whitespace-nowrap">
+            Progress: <span className="text-purple-400">{currentLevel - 1}</span> / 500
           </div>
         </div>
 
@@ -99,32 +71,18 @@ const LevelSelectScreen: React.FC = () => {
           if (diffLevels.length === 0) return null;
 
           return (
-            <div key={diff} style={{ marginBottom: 'clamp(20px, 5vw, 32px)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: 'clamp(8px, 2.5vw, 12px)' }}>
+            <div key={diff} className="mb-6 sm:mb-8 lg:mb-10">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
                 <div
-                  style={{
-                    width: 'clamp(8px, 2.5vw, 12px)',
-                    height: 'clamp(8px, 2.5vw, 12px)',
-                    borderRadius: '50%',
-                    backgroundColor: difficultyColors[diff],
-                    flexShrink: 0,
-                  }}
+                  className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: difficultyColors[diff] }}
                 />
-                <h2
-                  style={{
-                    fontSize: 'clamp(13px, 3.5vw, 18px)',
-                    fontWeight: 600,
-                    opacity: 0.8,
-                  }}
-                >
+                <h2 className="text-sm sm:text-lg font-semibold opacity-80">
                   {difficultyLabels[diff]}
                 </h2>
               </div>
 
-              <div
-                className="grid grid-cols-5"
-                style={{ gap: 'clamp(6px, 2vw, 12px)' }}
-              >
+              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3">
                 {diffLevels.map((level, i) => {
                   const isLocked = level.id > currentLevel;
                   const isCompleted = level.id < currentLevel;
@@ -132,14 +90,11 @@ const LevelSelectScreen: React.FC = () => {
                   return (
                     <motion.button
                       key={level.id}
-                      className={`glass-card text-center relative transition-all ${
+                      className={`glass-card text-center relative transition-all p-2 sm:p-3 ${
                         isLocked
                           ? 'opacity-40 cursor-not-allowed grayscale'
                           : 'cursor-pointer hover:border-purple-500'
                       }`}
-                      style={{
-                        padding: 'clamp(8px, 2.5vw, 16px) clamp(4px, 1.5vw, 8px)',
-                      }}
                       onClick={() => handleSelectLevel(level)}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -148,29 +103,25 @@ const LevelSelectScreen: React.FC = () => {
                       whileTap={!isLocked ? { scale: 0.95 } : {}}
                     >
                       {isLocked ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: 'clamp(14px, 3.5vw, 20px)', marginBottom: '2px' }}>🔒</span>
-                          <span style={{ fontSize: 'clamp(8px, 2vw, 11px)', opacity: 0.5 }}>
+                        <div className="flex flex-col items-center justify-center">
+                          <span className="text-lg sm:text-xl mb-0.5">🔒</span>
+                          <span className="text-[9px] sm:text-[10px] opacity-50">
                             {level.id}
                           </span>
                         </div>
                       ) : (
                         <>
                           <span
-                            style={{
-                              fontSize: 'clamp(13px, 3.5vw, 20px)',
-                              fontWeight: 700,
-                              color: difficultyColors[diff],
-                              display: 'block',
-                            }}
+                            className="block font-bold text-sm sm:text-lg"
+                            style={{ color: difficultyColors[diff] }}
                           >
                             {level.id}
                           </span>
-                          <div style={{ fontSize: 'clamp(8px, 2vw, 11px)', opacity: 0.5, marginTop: '2px' }}>
+                          <div className="text-[9px] sm:text-[10px] opacity-50 mt-0.5">
                             {level.colorCount}c · {level.tubeCount}t
                           </div>
                           {isCompleted && (
-                            <div style={{ position: 'absolute', top: '3px', right: '4px', fontSize: '9px', color: '#4ade80' }}>
+                            <div className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 text-[8px] sm:text-[10px] text-green-400">
                               ✓
                             </div>
                           )}

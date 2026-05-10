@@ -393,12 +393,8 @@ body {
 /* Premium Menu Buttons */
 .menu-btn {
   width: 100%;
-  padding: 1rem;
-  border-radius: 1rem;
   font-weight: 700;
-  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -552,12 +548,8 @@ body {
     min-width: 44px;
   }
 
-  /* Menu buttons - responsive padding */
+  /* Menu buttons - removed to use tailwind classes */
   .menu-btn {
-    padding: 0.85rem 0.75rem;
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
-    letter-spacing: 1px;
-    border-radius: 0.875rem;
   }
 
   /* Glass card - tighter on mobile */
@@ -565,11 +557,8 @@ body {
     border-radius: 14px;
   }
 
-  /* Avatar - slightly smaller */
+  /* Avatar - removed to use tailwind classes */
   .avatar-container {
-    width: 75px !important;
-    height: 75px !important;
-    margin-bottom: 0.75rem;
   }
 
   .avatar-edit-badge {
@@ -676,17 +665,11 @@ body {
 
   /* Menu buttons - compact for tiny screens */
   .menu-btn {
-    padding: 0.75rem 0.6rem;
-    font-size: clamp(0.65rem, 2.8vw, 0.8rem);
-    letter-spacing: 0.8px;
     gap: 0.5rem;
-    border-radius: 0.75rem;
   }
 
-  /* Avatar - compact */
+  /* Avatar - removed to use tailwind classes */
   .avatar-container {
-    width: 65px !important;
-    height: 65px !important;
   }
 
   .avatar-edit-badge {

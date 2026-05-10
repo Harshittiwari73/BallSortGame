@@ -30,21 +30,9 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div
-      className="game-bg overflow-x-hidden"
-      style={{
-        minHeight: '100dvh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'clamp(12px, 4vw, 32px) clamp(12px, 4vw, 32px)',
-        overflowX: 'hidden',
-      }}
-    >
+    <div className="game-bg min-h-[100dvh] flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
       <motion.div 
-        className="glass-card w-full relative overflow-hidden flex flex-col" 
-        style={{ maxWidth: 'min(420px, 100%)', padding: 'clamp(20px, 5vw, 40px)' }} 
+        className="glass-card w-full max-w-sm sm:max-w-md relative overflow-hidden flex flex-col p-6 sm:p-8 lg:p-10" 
         initial={{ opacity: 0, scale: 0.95, y: 20 }} 
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -55,50 +43,50 @@ const LoginScreen: React.FC = () => {
         <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] opacity-20 pointer-events-none"></div>
         
         {/* Back button */}
-        <button onClick={() => navigate('/')} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all mb-8 relative z-10 self-start">
+        <button onClick={() => navigate('/')} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all mb-6 sm:mb-8 relative z-10 self-start">
           ←
         </button>
         
         <div className="relative z-10 flex flex-col w-full">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold mb-3 text-white tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          <div className="mb-6 sm:mb-8 text-center">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 text-white tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               {isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
-            <p className="text-sm text-white/60">
+            <p className="text-xs sm:text-sm text-white/60">
               {isRegister ? 'Join us to save your progress and compete.' : 'Please enter your details to sign in.'}
             </p>
           </div>
           
           {error && (
-            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg mb-6 text-sm flex items-center gap-2">
-              <span className="text-lg">⚠️</span> {error}
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg mb-4 sm:mb-6 text-xs sm:text-sm flex items-center gap-2">
+              <span className="text-base sm:text-lg">⚠️</span> {error}
             </motion.div>
           )}
           
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase">Username</label>
-              <input type="text" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={username} onChange={e => setUsername(e.target.value)} placeholder="e.g. ProSorter99" required minLength={3} />
+              <label className="text-[10px] sm:text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase">Username</label>
+              <input type="text" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3 sm:py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-base" value={username} onChange={e => setUsername(e.target.value)} placeholder="e.g. ProSorter99" required minLength={3} />
             </div>
             
             {isRegister && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="flex flex-col gap-1.5 overflow-hidden">
-                <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Email</label>
-                <input type="email" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
+                <label className="text-[10px] sm:text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Email</label>
+                <input type="email" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3 sm:py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-base" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
               </motion.div>
             )}
             
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Password</label>
-              <input type="password" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
+              <label className="text-[10px] sm:text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Password</label>
+              <input type="password" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3 sm:py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-base" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
             </div>
             
-            <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold rounded-xl py-4 mt-4 transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] active:scale-[0.98]" disabled={loading}>
+            <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold rounded-xl py-3 sm:py-4 mt-2 sm:mt-4 text-sm sm:text-base transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] active:scale-[0.98]" disabled={loading}>
               {loading ? 'Please wait...' : isRegister ? 'Create account' : 'Sign in'}
             </button>
           </form>
           
-          <div className="mt-8 text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 text-sm">
+          <div className="mt-6 sm:mt-8 text-center flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 text-xs sm:text-sm">
             <span className="text-white/50">{isRegister ? 'Already have an account?' : "Don't have an account?"}</span>
             <button type="button" className="text-purple-400 font-semibold hover:text-purple-300 hover:underline transition-all" onClick={() => { setIsRegister(!isRegister); setError(null); }}>
               {isRegister ? 'Sign in instead' : 'Create one now'}

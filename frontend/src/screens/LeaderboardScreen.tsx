@@ -39,120 +39,63 @@ const LeaderboardScreen: React.FC = () => {
   };
 
   return (
-    <div
-      className="game-bg overflow-x-hidden"
-      style={{
-        minHeight: '100dvh',
-        padding: 'clamp(16px, 4vw, 32px) clamp(12px, 3.5vw, 16px)',
-        overflowX: 'hidden',
-      }}
-    >
-      <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+    <div className="game-bg min-h-[100dvh] overflow-x-hidden p-4 sm:p-6 lg:p-8">
+      <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(10px, 3vw, 16px)',
-            marginBottom: 'clamp(16px, 4.5vw, 28px)',
-          }}
-        >
-          <button onClick={() => navigate('/')} className="btn-icon">
+        <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <button onClick={() => navigate('/')} className="btn-icon w-10 h-10 sm:w-11 sm:h-11">
             ←
           </button>
-          <h1
-            className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent"
-            style={{
-              fontFamily: 'Outfit, sans-serif',
-              fontSize: 'clamp(1.4rem, 7vw, 2rem)',
-              fontWeight: 700,
-            }}
-          >
+          <h1 className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent font-bold text-2xl sm:text-3xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
             🏆 Leaderboard
           </h1>
         </div>
 
         {error && (
-          <div
-            className="glass-card border-yellow-500/30"
-            style={{
-              padding: 'clamp(8px, 2.5vw, 12px) clamp(12px, 3vw, 16px)',
-              marginBottom: 'clamp(10px, 3vw, 16px)',
-              fontSize: 'clamp(11px, 2.8vw, 13px)',
-              color: '#facc15',
-            }}
-          >
+          <div className="glass-card border-yellow-500/30 p-3 sm:p-4 mb-4 sm:mb-5 text-xs sm:text-sm text-yellow-400">
             ⚠️ {error}
           </div>
         )}
 
         {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '60px 0' }}>
+          <div className="flex justify-center py-16 sm:py-20">
             <motion.div
-              style={{
-                width: '40px',
-                height: '40px',
-                border: '3px solid #a855f7',
-                borderTopColor: 'transparent',
-                borderRadius: '50%',
-              }}
+              className="w-10 h-10 border-[3px] border-purple-500 border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 2.5vw, 12px)' }}>
+          <div className="flex flex-col gap-2.5 sm:gap-3">
             {entries.map((entry, i) => (
               <motion.div
                 key={entry.rank}
-                className={`glass-card ${entry.rank <= 3 ? 'border-yellow-500/30' : ''}`}
-                style={{
-                  padding: 'clamp(10px, 3vw, 16px) clamp(12px, 3.5vw, 16px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 'clamp(10px, 3vw, 16px)',
-                }}
+                className={`glass-card p-3 sm:p-4 flex items-center gap-3 sm:gap-4 ${entry.rank <= 3 ? 'border-yellow-500/30' : ''}`}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
               >
                 {/* Rank */}
-                <div
-                  style={{
-                    fontSize: 'clamp(16px, 5vw, 24px)',
-                    fontWeight: 700,
-                    width: 'clamp(32px, 8vw, 48px)',
-                    textAlign: 'center',
-                    flexShrink: 0,
-                  }}
-                >
+                <div className="text-xl sm:text-2xl font-bold w-10 sm:w-12 text-center flex-shrink-0">
                   {getRankEmoji(entry.rank)}
                 </div>
 
                 {/* Info */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p
-                    style={{
-                      fontWeight: 600,
-                      fontSize: 'clamp(13px, 3.5vw, 18px)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm sm:text-lg overflow-hidden text-ellipsis whitespace-nowrap">
                     {entry.username}
                   </p>
-                  <p style={{ fontSize: 'clamp(10px, 2.5vw, 13px)', opacity: 0.5 }}>
+                  <p className="text-[10px] sm:text-xs opacity-50">
                     {entry.levelsCompleted} levels completed
                   </p>
                 </div>
 
                 {/* Score */}
-                <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <p style={{ fontSize: 'clamp(13px, 3.5vw, 18px)', fontWeight: 700, color: '#a78bfa' }}>
+                <div className="text-right flex-shrink-0">
+                  <p className="text-sm sm:text-lg font-bold text-purple-400">
                     {entry.totalScore}
                   </p>
-                  <p style={{ fontSize: 'clamp(10px, 2.5vw, 13px)', color: '#facc15' }}>
+                  <p className="text-[10px] sm:text-xs text-yellow-400">
                     🪙 {entry.totalCoins}
                   </p>
                 </div>

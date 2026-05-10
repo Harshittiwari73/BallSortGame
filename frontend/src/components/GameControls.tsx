@@ -31,82 +31,45 @@ const GameControls: React.FC = () => {
 
   return (
     <motion.div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 'clamp(8px, 2.5vw, 12px)',
-        padding: 'clamp(8px, 2.5vw, 16px) clamp(12px, 3vw, 16px)',
-        width: '100%',
-        maxWidth: '480px',
-      }}
+      className="flex justify-center w-full gap-2 sm:gap-3 px-1 sm:px-4 mx-auto max-w-md"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
     >
       {/* Undo */}
       <motion.button
-        className="btn-secondary"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'clamp(4px, 1.5vw, 8px)',
-          padding: 'clamp(10px, 3vw, 12px) clamp(12px, 3.5vw, 20px)',
-          flex: 1,
-          justifyContent: 'center',
-          minHeight: '44px',
-          fontSize: 'clamp(12px, 3vw, 14px)',
-        }}
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
         onClick={handleUndo}
         disabled={history.length === 0}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         animate={{ opacity: history.length === 0 ? 0.4 : 1 }}
       >
-        <span>↩️</span>
-        <span style={{ fontWeight: 500 }}>Undo</span>
+        <span className="text-sm sm:text-base">↩️</span>
+        <span>Undo</span>
       </motion.button>
 
       {/* Restart */}
       <motion.button
-        className="btn-secondary"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'clamp(4px, 1.5vw, 8px)',
-          padding: 'clamp(10px, 3vw, 12px) clamp(12px, 3.5vw, 20px)',
-          flex: 1,
-          justifyContent: 'center',
-          minHeight: '44px',
-          fontSize: 'clamp(12px, 3vw, 14px)',
-        }}
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
         onClick={handleRestart}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span>🔄</span>
-        <span style={{ fontWeight: 500 }}>Restart</span>
+        <span className="text-sm sm:text-base">🔄</span>
+        <span>Restart</span>
       </motion.button>
 
       {/* Hint */}
       <motion.button
-        className="btn-secondary"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'clamp(4px, 1.5vw, 8px)',
-          padding: 'clamp(10px, 3vw, 12px) clamp(12px, 3.5vw, 20px)',
-          flex: 1,
-          justifyContent: 'center',
-          minHeight: '44px',
-          fontSize: 'clamp(12px, 3vw, 14px)',
-        }}
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
         onClick={handleHint}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span>💡</span>
-        <span style={{ fontWeight: 500 }}>Hint</span>
-        <span style={{ fontSize: 'clamp(9px, 2.2vw, 11px)', opacity: 0.5, marginLeft: '2px' }}>🪙5</span>
+        <span className="text-sm sm:text-base">💡</span>
+        <span>Hint</span>
+        <span className="text-[9px] sm:text-[11px] opacity-50 ml-0.5">🪙5</span>
       </motion.button>
     </motion.div>
   );

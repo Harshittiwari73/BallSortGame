@@ -65,32 +65,14 @@ const ProfileScreen: React.FC = () => {
   };
 
   return (
-    <div
-      className="game-bg overflow-x-hidden"
-      style={{
-        minHeight: '100dvh',
-        padding: 'clamp(16px, 4vw, 32px) clamp(12px, 3.5vw, 16px)',
-        overflowX: 'hidden',
-      }}
-    >
-      <div style={{ maxWidth: '520px', margin: '0 auto' }}>
+    <div className="game-bg min-h-[100dvh] overflow-x-hidden p-4 sm:p-6 lg:p-8">
+      <div className="max-w-lg mx-auto">
         {/* Back header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(10px, 3vw, 16px)',
-            marginBottom: 'clamp(16px, 5vw, 36px)',
-          }}
-        >
-          <button onClick={() => navigate('/')} className="btn-icon">←</button>
+        <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 lg:mb-10">
+          <button onClick={() => navigate('/')} className="btn-icon w-10 h-10 sm:w-11 sm:h-11">←</button>
           <h1
-            className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
-            style={{
-              fontFamily: 'Outfit',
-              fontSize: 'clamp(1.4rem, 7vw, 2rem)',
-              fontWeight: 700,
-            }}
+            className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-bold text-2xl sm:text-3xl"
+            style={{ fontFamily: 'Outfit' }}
           >
             My Stats
           </h1>
@@ -98,14 +80,13 @@ const ProfileScreen: React.FC = () => {
 
         {/* Profile Header Card */}
         <motion.div
-          className="glass-card text-center relative overflow-hidden"
-          style={{ padding: 'clamp(20px, 5vw, 32px)', marginBottom: 'clamp(14px, 4vw, 28px)' }}
+          className="glass-card text-center relative overflow-hidden p-6 sm:p-8 mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
         >
           {/* Avatar Section */}
-          <div className="avatar-container" onClick={() => fileInputRef.current?.click()}>
-            <div className="avatar-glow"></div>
+          <div className="avatar-container w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4" onClick={() => fileInputRef.current?.click()}>
+            <div className="avatar-glow inset-[-4px]"></div>
             <div className="avatar-image">
               {isUploading ? (
                 <div className="animate-spin text-2xl">⏳</div>
@@ -115,7 +96,7 @@ const ProfileScreen: React.FC = () => {
                 user.username.charAt(0).toUpperCase()
               )}
             </div>
-            <div className="avatar-edit-badge">📸</div>
+            <div className="avatar-edit-badge w-7 h-7 sm:w-8 sm:h-8 text-xs sm:text-sm">📸</div>
           </div>
 
           <input
@@ -126,32 +107,24 @@ const ProfileScreen: React.FC = () => {
             accept="image/png, image/jpeg, image/webp"
           />
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(6px, 1.5vw, 8px)', marginTop: 'clamp(8px, 2vw, 12px)' }}>
+          <div className="flex flex-col items-center gap-1.5 sm:gap-2 mt-2 sm:mt-3">
             <div
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+              className="flex items-center gap-2 cursor-pointer"
               onClick={() => setIsEditingName(true)}
             >
-              <h2
-                style={{
-                  fontSize: 'clamp(1.3rem, 6vw, 1.875rem)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.02em',
-                }}
-                className="hover:text-purple-400 transition-colors"
-              >
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight hover:text-purple-400 transition-colors">
                 {user.username}
               </h2>
-              <span style={{ fontSize: '0.875rem', opacity: 0.3 }}>✏️</span>
+              <span className="text-xs sm:text-sm opacity-30">✏️</span>
             </div>
-            <p style={{ fontSize: 'clamp(10px, 2.5vw, 12px)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(167,139,250,0.7)' }}>
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-purple-400/70">
               Master Sorter
             </p>
 
             {user.avatarUrl && (
               <button
                 onClick={(e) => { e.stopPropagation(); handleRemovePhoto(); }}
-                style={{ fontSize: 'clamp(9px, 2.3vw, 11px)', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.3, marginTop: '4px' }}
-                className="hover:opacity-100 hover:text-red-400 transition-all"
+                className="text-[9px] sm:text-[10px] uppercase tracking-widest opacity-30 hover:opacity-100 hover:text-red-400 transition-all mt-1"
               >
                 Remove Photo
               </button>
@@ -161,29 +134,23 @@ const ProfileScreen: React.FC = () => {
 
         {/* Stats Grid */}
         <motion.div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 'clamp(8px, 2.5vw, 16px)',
-            marginBottom: 'clamp(14px, 4vw, 28px)',
-          }}
+          className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
           {[
-            { label: 'Level', value: user.currentLevel, color: '#a78bfa', icon: '📊' },
-            { label: 'Coins', value: user.coins, color: '#facc15', icon: '🪙' },
-            { label: 'Wins', value: user.currentLevel - 1, color: '#4ade80', icon: '✅' },
+            { label: 'Level', value: user.currentLevel, color: 'text-purple-400', icon: '📊' },
+            { label: 'Coins', value: user.coins, color: 'text-yellow-400', icon: '🪙' },
+            { label: 'Wins', value: user.currentLevel - 1, color: 'text-green-400', icon: '✅' },
           ].map((stat, i) => (
             <div
               key={i}
-              className="glass-card text-center relative hover:border-purple-500/30 transition-all"
-              style={{ padding: 'clamp(12px, 3.5vw, 20px) clamp(8px, 2vw, 12px)' }}
+              className="glass-card text-center relative hover:border-purple-500/30 transition-all p-3 sm:p-4"
             >
-              <div style={{ fontSize: 'clamp(16px, 4.5vw, 22px)', marginBottom: '4px' }}>{stat.icon}</div>
-              <p style={{ fontSize: 'clamp(1.1rem, 5vw, 1.5rem)', fontWeight: 900, color: stat.color }}>{stat.value}</p>
-              <p style={{ fontSize: 'clamp(8px, 2vw, 10px)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.1em', opacity: 0.4, marginTop: '4px' }}>
+              <div className="text-lg sm:text-xl lg:text-2xl mb-1">{stat.icon}</div>
+              <p className={`text-lg sm:text-xl lg:text-2xl font-black ${stat.color}`}>{stat.value}</p>
+              <p className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest opacity-40 mt-1">
                 {stat.label}
               </p>
             </div>
@@ -192,20 +159,19 @@ const ProfileScreen: React.FC = () => {
 
         {/* Achievements */}
         <motion.div
-          className="glass-card"
-          style={{ padding: 'clamp(16px, 4.5vw, 32px)', marginBottom: 'clamp(14px, 4vw, 28px)' }}
+          className="glass-card p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'clamp(12px, 3.5vw, 24px)' }}>
-            <h3 style={{ fontSize: 'clamp(14px, 4vw, 20px)', fontWeight: 700, letterSpacing: '-0.01em' }}>🏅 Achievements</h3>
-            <span style={{ fontSize: 'clamp(9px, 2.2vw, 12px)', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '999px', opacity: 0.6 }}>
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-sm sm:text-base lg:text-lg font-bold tracking-tight">🏅 Achievements</h3>
+            <span className="text-[9px] sm:text-xs bg-white/5 px-2 py-0.5 rounded-full opacity-60">
               {Math.floor(([user.currentLevel > 1, false, user.currentLevel > 10, user.coins >= 100, user.currentLevel > 150].filter(Boolean).length / 5) * 100)}% Complete
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 2.5vw, 16px)' }}>
+          <div className="flex flex-col gap-2 sm:gap-3">
             {[
               { icon: '🎯', name: 'First Sort', desc: 'Complete your first level', done: user.currentLevel > 1 },
               { icon: '⚡', name: 'Speed Demon', desc: 'Complete a level in under 30s', done: false },
@@ -215,38 +181,18 @@ const ProfileScreen: React.FC = () => {
             ].map((ach, i) => (
               <div
                 key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 'clamp(10px, 3vw, 16px)',
-                  padding: 'clamp(10px, 3vw, 16px)',
-                  borderRadius: '12px',
-                  border: `1px solid ${ach.done ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.05)'}`,
-                  background: ach.done ? 'rgba(34,197,94,0.05)' : 'rgba(255,255,255,0.05)',
-                  opacity: ach.done ? 1 : 0.4,
-                }}
+                className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border ${ach.done ? 'border-green-500/20 bg-green-500/5 opacity-100' : 'border-white/5 bg-white/5 opacity-40'}`}
               >
-                <span style={{ fontSize: 'clamp(20px, 5vw, 28px)', flexShrink: 0 }}>{ach.icon}</span>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontWeight: 700, fontSize: 'clamp(12px, 3vw, 14px)', letterSpacing: '-0.01em' }}>{ach.name}</p>
-                  <p style={{ fontSize: 'clamp(10px, 2.5vw, 12px)', opacity: 0.5, fontWeight: 500 }}>{ach.desc}</p>
+                <span className="text-xl sm:text-2xl flex-shrink-0">{ach.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-xs sm:text-sm tracking-tight">{ach.name}</p>
+                  <p className="text-[10px] sm:text-xs opacity-50 font-medium">{ach.desc}</p>
                 </div>
                 {ach.done && (
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    style={{
-                      width: 'clamp(20px, 5vw, 24px)',
-                      height: 'clamp(20px, 5vw, 24px)',
-                      background: '#22c55e',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 'clamp(8px, 2.2vw, 11px)',
-                      color: 'white',
-                      flexShrink: 0,
-                    }}
+                    className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center text-[9px] sm:text-[11px] text-white flex-shrink-0"
                   >
                     ✓
                   </motion.div>
@@ -258,18 +204,7 @@ const ProfileScreen: React.FC = () => {
 
         {/* Reset */}
         <motion.button
-          style={{
-            width: '100%',
-            padding: 'clamp(12px, 3.5vw, 16px)',
-            fontSize: 'clamp(9px, 2.5vw, 12px)',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '0.2em',
-            color: 'rgba(248,113,113,0.5)',
-            border: '1px solid rgba(239,68,68,0.1)',
-            borderRadius: '12px',
-          }}
-          className="hover:text-red-400 transition-all hover:border-red-500/30"
+          className="w-full p-3 sm:p-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-red-400/50 border border-red-500/10 rounded-xl hover:text-red-400 transition-all hover:border-red-500/30"
           onClick={handleReset}
           whileTap={{ scale: 0.98 }}
         >
@@ -282,41 +217,32 @@ const ProfileScreen: React.FC = () => {
         {isEditingName && (
           <div className="modal-backdrop">
             <motion.div
-              className="glass-card w-full"
-              style={{
-                maxWidth: 'min(380px, calc(100vw - 24px))',
-                padding: 'clamp(20px, 5vw, 32px)',
-                borderRadius: 'clamp(16px, 4vw, 24px)',
-                boxShadow: '0 0 100px rgba(139,92,246,0.2)',
-              }}
+              className="glass-card w-full max-w-sm p-6 sm:p-8 rounded-2xl shadow-[0_0_100px_rgba(139,92,246,0.2)]"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
             >
-              <h3 style={{ fontSize: 'clamp(16px, 4.5vw, 20px)', fontWeight: 700, marginBottom: 'clamp(16px, 4vw, 24px)' }}>
+              <h3 className="text-base sm:text-lg font-bold mb-4 sm:mb-6">
                 Change Nickname
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(12px, 3vw, 16px)' }}>
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <input
                   type="text"
-                  className="input-field"
-                  style={{ fontSize: 'clamp(14px, 4vw, 18px)' }}
+                  className="input-field text-sm sm:text-base"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   maxLength={15}
                   autoFocus
                 />
-                <div style={{ display: 'flex', gap: 'clamp(8px, 2vw, 12px)', marginTop: '4px' }}>
+                <div className="flex gap-2 sm:gap-3 mt-1">
                   <button
-                    className="btn-secondary flex-1"
-                    style={{ padding: 'clamp(10px, 3vw, 12px)' }}
+                    className="btn-secondary flex-1 py-2 sm:py-2.5 text-sm"
                     onClick={() => { setIsEditingName(false); setNewName(user.username); }}
                   >
                     Cancel
                   </button>
                   <button
-                    className="btn-primary flex-1"
-                    style={{ padding: 'clamp(10px, 3vw, 12px)' }}
+                    className="btn-primary flex-1 py-2 sm:py-2.5 text-sm"
                     onClick={handleSaveName}
                   >
                     Save

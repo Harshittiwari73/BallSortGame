@@ -27,22 +27,12 @@ const GameBoard: React.FC = () => {
 
   return (
     <motion.div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        padding: 'clamp(12px, 3vw, 28px) clamp(10px, 3vw, 16px)',
-        overflowX: 'hidden',
-      }}
+      className="flex justify-center items-center w-full px-2 sm:px-4 py-4 sm:py-8 overflow-x-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div
-        className={`grid ${gridCols}`}
-        style={{ gap: 'clamp(8px, 2.5vw, 20px)' }}
-      >
+      <div className={`grid ${gridCols} gap-2 sm:gap-4 md:gap-5 lg:gap-6 max-w-full`}>
         {tubes.map((tube, index) => {
           const isValidTarget = selectedTube !== null && selectedTube !== index && isValidMove(tubes, selectedTube, index);
 
