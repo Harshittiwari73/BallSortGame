@@ -38,7 +38,7 @@ const GameControls: React.FC = () => {
     >
       {/* Undo */}
       <motion.button
-        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-3 sm:py-3 min-h-[48px] text-sm sm:text-sm font-bold"
         onClick={handleUndo}
         disabled={history.length === 0}
         whileHover={{ scale: 1.05 }}
@@ -51,7 +51,7 @@ const GameControls: React.FC = () => {
 
       {/* Restart */}
       <motion.button
-        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-3 sm:py-3 min-h-[48px] text-sm sm:text-sm font-bold"
         onClick={handleRestart}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -62,7 +62,7 @@ const GameControls: React.FC = () => {
 
       {/* Hint */}
       <motion.button
-        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 min-h-[44px] text-xs sm:text-sm font-medium"
+        className="btn-secondary flex-1 flex items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-3 sm:py-3 min-h-[48px] text-sm sm:text-sm font-bold"
         onClick={handleHint}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

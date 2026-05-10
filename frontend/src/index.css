@@ -86,8 +86,8 @@ body {
 /* Tube styling */
 .tube-container {
   position: relative;
-  width: 56px;
-  min-height: 200px;
+  width: 60px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -97,16 +97,16 @@ body {
 }
 
 .tube {
-  width: 52px;
+  width: 60px;
   background: var(--tube-bg);
   border: 2px solid var(--tube-border);
   border-top: none;
-  border-radius: 0 0 24px 24px;
+  border-radius: 0 0 26px 26px;
   padding: 4px;
   display: flex;
   flex-direction: column-reverse;
-  gap: 3px;
-  min-height: 180px;
+  gap: 4px;
+  min-height: 220px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -153,8 +153,8 @@ body {
 
 /* Ball styling */
 .ball {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -507,21 +507,36 @@ body {
     overflow-x: hidden;
   }
 
-  /* Tube sizing - smaller on mobile */
+  /* Tube sizing - precisely calculated for tablet */
   .tube-container {
-    width: 44px;
-    min-height: 160px;
+    width: 56px;
+    min-height: 230px;
   }
 
   .tube {
-    width: 40px;
-    min-height: 144px;
+    width: 56px;
+    min-height: 202px;
+    padding: 4px;
+    border-width: 2px;
+    gap: 4px;
   }
 
-  /* Ball sizing - slightly smaller on mobile */
+  .tube::before {
+    left: -4px; right: -4px; height: 6px;
+  }
+
+  /* Ball sizing - perfectly balanced */
   .ball {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .ball::before {
+    top: 6px; left: 8px; width: 14px; height: 10px;
+  }
+  
+  .ball::after {
+    bottom: 8px; right: 10px; width: 8px; height: 6px;
   }
 
   /* Button touch targets - minimum 44px height for touch */
@@ -605,41 +620,45 @@ body {
    MOBILE RESPONSIVE - 480px and below (small phones)
    ============================================ */
 @media (max-width: 480px) {
-  /* Tube sizing - smallest on tiny phones */
+  /* Tube sizing - perfectly optimized for small phones */
   .tube-container {
-    width: 38px;
-    min-height: 140px;
+    width: 58px;
+    min-height: 245px;
   }
 
   .tube {
-    width: 34px;
-    min-height: 124px;
+    width: 58px;
+    min-height: 221px;
+    padding: 3px;
+    border-width: 2px;
+    gap: 4px;
+    border-radius: 0 0 24px 24px;
   }
 
   .tube::before {
-    left: -3px;
-    right: -3px;
-    height: 5px;
+    left: -4px;
+    right: -4px;
+    height: 6px;
   }
 
-  /* Ball sizing - smallest */
+  /* Ball sizing - PROPORTIONALLY FITTED */
   .ball {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
   }
 
   .ball::before {
-    width: 10px;
-    height: 8px;
-    top: 5px;
-    left: 6px;
+    width: 14px;
+    height: 10px;
+    top: 7px;
+    left: 9px;
   }
 
   .ball::after {
-    width: 6px;
-    height: 5px;
-    bottom: 6px;
-    right: 7px;
+    width: 8px;
+    height: 6px;
+    bottom: 8px;
+    right: 10px;
   }
 
   /* Buttons - smaller text but keep touch-friendly height */

@@ -50,8 +50,6 @@ const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, is
                 key={`floating-${i}`}
                 className={`ball ball-${topColor} ball-floating`}
                 style={{ 
-                  width: 36, 
-                  height: 36,
                   marginBottom: -8 // Stagger them slightly
                 }}
                 initial={{ y: 20, opacity: 0 }}
@@ -123,7 +121,7 @@ const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, is
       </div>
 
       {/* Tube number label */}
-      <span className="text-xs mt-1 opacity-40 font-medium">{index + 1}</span>
+      <span className="text-sm sm:text-xs mt-1.5 sm:mt-1 opacity-60 font-bold">{index + 1}</span>
 
       {/* Complete checkmark */}
       {isComplete && (
