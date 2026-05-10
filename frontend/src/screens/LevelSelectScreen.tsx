@@ -4,21 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { loadLevel } from '../redux/gameSlice';
 import type { LevelConfig } from '../types';
-import { generateLevelConfig } from '../utils/puzzleGenerator';
-
-const difficultyColors: Record<number, string> = {
-  1: '#22c55e',
-  2: '#f59e0b',
-  3: '#ef4444',
-  4: '#a855f7',
-};
-
-const difficultyLabels: Record<number, string> = {
-  1: 'Easy',
-  2: 'Medium',
-  3: 'Hard',
-  4: 'Expert',
-};
+import { generateLevelConfig, DIFFICULTY_PRESETS } from '../utils/puzzleGenerator';
 
 /**
  * Level selection screen with grid of levels — fully mobile responsive
@@ -32,9 +18,9 @@ const LevelSelectScreen: React.FC = () => {
   const currentLevel = user?.currentLevel ?? 1;
 
   useEffect(() => {
-    // Generate 500 levels locally
+    // Generate 1000 levels locally
     const generated: LevelConfig[] = [];
-    for (let i = 1; i <= 500; i++) {
+    for (let i = 1; i <= 1000; i++) {
       generated.push(generateLevelConfig(i));
     }
     setLevels(generated);
@@ -61,24 +47,25 @@ const LevelSelectScreen: React.FC = () => {
             Select Level
           </h1>
           <div className="glass-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium flex-shrink-0 whitespace-nowrap">
-            Progress: <span className="text-purple-400">{currentLevel - 1}</span> / 500
+            Progress: <span className="text-purple-400">{currentLevel - 1}</span> / 1000
           </div>
         </div>
 
         {/* Difficulty sections */}
-        {[1, 2, 3, 4].map((diff) => {
+        {[1, 2, 3, 4, 5].map((diff) => {
           const diffLevels = levels.filter((l) => l.difficulty === diff);
           if (diffLevels.length === 0) return null;
+
+          const preset = DIFFICULTY_PRESETS[diff as keyof typeof DIFFICULTY_PRESETS];
 
           return (
             <div key={diff} className="mb-6 sm:mb-8 lg:mb-10">
               <div className="flex items-center gap-2 mb-3 sm:mb-4">
                 <div
-                  className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: difficultyColors[diff] }}
+                  className={`w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full flex-shrink-0 ${preset.glowClass} bg-current ${preset.colorClass}`}
                 />
                 <h2 className="text-sm sm:text-lg font-semibold opacity-80">
-                  {difficultyLabels[diff]}
+                  {preset.name}
                 </h2>
               </div>
 
@@ -90,11 +77,10 @@ const LevelSelectScreen: React.FC = () => {
                   return (
                     <motion.button
                       key={level.id}
-                      className={`glass-card text-center relative transition-all p-2 sm:p-3 ${
-                        isLocked
-                          ? 'opacity-40 cursor-not-allowed grayscale'
-                          : 'cursor-pointer hover:border-purple-500'
-                      }`}
+                      className={`glass-card text-center relative transition-all p-2 sm:p-3 ${isLocked
+                        ? 'opacity-40 cursor-not-allowed grayscale'
+                        : 'cursor-pointer hover:border-purple-500'
+                        }`}
                       onClick={() => handleSelectLevel(level)}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -112,8 +98,7 @@ const LevelSelectScreen: React.FC = () => {
                       ) : (
                         <>
                           <span
-                            className="block font-bold text-sm sm:text-lg"
-                            style={{ color: difficultyColors[diff] }}
+                            className={`block font-bold text-sm sm:text-lg ${preset.colorClass}`}
                           >
                             {level.id}
                           </span>

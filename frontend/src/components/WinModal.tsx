@@ -16,10 +16,11 @@ const WinModal: React.FC = () => {
 
   // Calculate stars based on moves and time
   const getStars = () => {
-    let colorCount = 2;
-    if (level > 50) colorCount = 3;
-    if (level > 150) colorCount = 5;
-    if (level > 350) colorCount = 8;
+    let colorCount = 3; // Easy
+    if (level > 50) colorCount = 5; // Medium
+    if (level > 200) colorCount = 7; // Hard
+    if (level > 400) colorCount = 10; // Expert
+    if (level > 700) colorCount = 14; // Legend
 
     const targetMoves = colorCount * 6;
     const targetTime = colorCount * 20;
@@ -36,19 +37,28 @@ const WinModal: React.FC = () => {
     return Math.max(1, score);
   };
 
-  // Calculate coins
+  // Calculate coins based on difficulty and performance
   useEffect(() => {
     if (isWon) {
-      let coins = 10;
-      if (moves <= 10) coins += 15;
-      else if (moves <= 20) coins += 10;
-      else coins += 5;
-      if (timer <= 30) coins += 15;
-      else if (timer <= 60) coins += 10;
-      else coins += 5;
-      setCoinsEarned(coins);
+      // Base difficulty multiplier
+      let diffMultiplier = 1; // Easy
+      if (level > 50) diffMultiplier = 2; // Medium
+      if (level > 200) diffMultiplier = 4; // Hard
+      if (level > 400) diffMultiplier = 8; // Expert
+      if (level > 700) diffMultiplier = 15; // Legend
 
-      dispatch(updateCoins(user.coins + coinsEarned));
+      let baseCoins = 10 * diffMultiplier;
+      
+      // Performance bonus
+      let bonus = 0;
+      if (stars === 5) bonus = 15 * diffMultiplier;
+      else if (stars === 4) bonus = 10 * diffMultiplier;
+      else if (stars === 3) bonus = 5 * diffMultiplier;
+
+      let totalCoins = baseCoins + bonus;
+      setCoinsEarned(totalCoins);
+
+      dispatch(updateCoins(user.coins + totalCoins));
 
       if (level >= user.currentLevel) {
         dispatch(updateCurrentLevel(level + 1));

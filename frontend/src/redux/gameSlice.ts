@@ -22,9 +22,10 @@ interface GameState {
 function getInitialBoard(level: number): GameBoard {
   let difficulty: number;
   if (level <= 50) difficulty = 1;
-  else if (level <= 150) difficulty = 2;
-  else if (level <= 350) difficulty = 3;
-  else difficulty = 4;
+  else if (level <= 200) difficulty = 2;
+  else if (level <= 400) difficulty = 3;
+  else if (level <= 700) difficulty = 4;
+  else difficulty = 5;
 
   const preset = DIFFICULTY_PRESETS[difficulty as keyof typeof DIFFICULTY_PRESETS];
   return generatePuzzle(preset.colors, preset.emptyTubes);
