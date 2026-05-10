@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import Tube from './Tube';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { selectTube } from '../redux/gameSlice';
+import { isValidMove } from '../utils/gameLogic';
 
 /**
  * Game board - renders all tubes in a responsive grid layout
  */
 const GameBoard: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { tubes, selectedTube, hintFrom, hintTo } = useAppSelector((state) => state.game);
+  const { tubes, selectedTube, hintFrom, hintTo, perfectTubeIndex } = useAppSelector((state) => state.game);
 
   const handleTubeClick = (index: number) => {
     dispatch(selectTube(index));
@@ -31,17 +32,23 @@ const GameBoard: React.FC = () => {
       transition={{ duration: 0.5 }}
     >
       <div className={`grid ${gridCols} gap-4 md:gap-6`}>
-        {tubes.map((tube, index) => (
-          <Tube
-            key={index}
-            balls={tube}
-            index={index}
-            isSelected={selectedTube === index}
-            isHintFrom={hintFrom === index}
-            isHintTo={hintTo === index}
-            onClick={() => handleTubeClick(index)}
-          />
-        ))}
+        {tubes.map((tube, index) => {
+          const isValidTarget = selectedTube !== null && selectedTube !== index && isValidMove(tubes, selectedTube, index);
+          
+          return (
+            <Tube
+              key={index}
+              balls={tube}
+              index={index}
+              isSelected={selectedTube === index}
+              isValidTarget={isValidTarget}
+              isHintFrom={hintFrom === index}
+              isHintTo={hintTo === index}
+              isPerfect={perfectTubeIndex === index}
+              onClick={() => handleTubeClick(index)}
+            />
+          );
+        })}
       </div>
     </motion.div>
   );

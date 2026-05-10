@@ -47,6 +47,12 @@ const userSlice = createSlice({
       localStorage.setItem('bsg_user', JSON.stringify(state.user));
     },
 
+    updateProfile(state, action: PayloadAction<{ username?: string; avatarUrl?: string }>) {
+      if (action.payload.username) state.user.username = action.payload.username;
+      if (action.payload.avatarUrl !== undefined) state.user.avatarUrl = action.payload.avatarUrl;
+      localStorage.setItem('bsg_user', JSON.stringify(state.user));
+    },
+
     resetProgress(state) {
       state.user = { ...DEFAULT_USER };
       localStorage.setItem('bsg_user', JSON.stringify(state.user));
@@ -54,6 +60,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { updateCoins, updateCurrentLevel, resetProgress } = userSlice.actions;
+export const { updateCoins, updateCurrentLevel, updateProfile, resetProgress } = userSlice.actions;
 
 export default userSlice.reducer;

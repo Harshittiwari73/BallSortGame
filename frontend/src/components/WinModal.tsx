@@ -12,11 +12,30 @@ const WinModal: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
   const [coinsEarned, setCoinsEarned] = useState(0);
 
-  // Calculate stars based on moves
+  // Calculate stars based on moves and time
   const getStars = () => {
-    if (moves <= 10) return 3;
-    if (moves <= 20) return 2;
-    return 1;
+    // Determine color count based on level (matching puzzleGenerator.ts logic)
+    let colorCount = 2;
+    if (level > 50) colorCount = 3;
+    if (level > 150) colorCount = 5;
+    if (level > 350) colorCount = 8;
+
+    // Target moves and time thresholds
+    const targetMoves = colorCount * 6;
+    const targetTime = colorCount * 20;
+
+    let score = 5;
+
+    // Deduct stars based on moves
+    if (moves > targetMoves * 2.5) score -= 4;
+    else if (moves > targetMoves * 2.0) score -= 3;
+    else if (moves > targetMoves * 1.5) score -= 2;
+    else if (moves > targetMoves) score -= 1;
+
+    // Deduct a star if time is very slow (but don't go below 1)
+    if (timer > targetTime * 2 && score > 1) score -= 1;
+
+    return Math.max(1, score);
   };
 
   // Calculate coins
@@ -158,13 +177,13 @@ const WinModal: React.FC = () => {
 
             {/* Stars */}
             <div className="flex justify-center gap-2 my-4">
-              {[1, 2, 3].map((star) => (
+              {[1, 2, 3, 4, 5].map((star) => (
                 <motion.span
                   key={star}
                   className="text-4xl"
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.5 + star * 0.2, type: 'spring', stiffness: 300 }}
+                  transition={{ delay: 0.5 + star * 0.15, type: 'spring', stiffness: 300 }}
                 >
                   {star <= stars ? '⭐' : '☆'}
                 </motion.span>

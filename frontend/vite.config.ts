@@ -10,9 +10,8 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://ballsortgameproject.onrender.com',
-        changeOrigin: true,
-        secure: true
+        target: 'http://localhost:5021',
+        changeOrigin: true
       }
     }
   }

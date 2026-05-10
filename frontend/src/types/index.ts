@@ -50,6 +50,7 @@ export interface User {
   email: string;
   coins: number;
   currentLevel: number;
+  avatarUrl?: string;
 }
 
 export interface AuthResponse {

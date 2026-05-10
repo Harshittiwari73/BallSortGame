@@ -36,13 +36,45 @@ export function isValidMove(tubes: GameBoard, from: number, to: number): boolean
 }
 
 /**
- * Execute a move: remove top ball from source, add to destination
+ * Get how many balls of the same color are consecutively at the top
+ */
+export function getConsecutiveCount(tube: number[]): number {
+  if (tube.length === 0) return 0;
+  const topColor = tube[tube.length - 1];
+  let count = 0;
+  for (let i = tube.length - 1; i >= 0; i--) {
+    if (tube[i] === topColor) count++;
+    else break;
+  }
+  return count;
+}
+
+/**
+ * Execute a move: remove top ball(s) from source, add to destination
+ * If multiple balls of the same color are at the top, move all that fit.
  * Returns a new board state (immutable)
  */
 export function executeMove(tubes: GameBoard, from: number, to: number): GameBoard {
   const newTubes = tubes.map(tube => [...tube]);
-  const ball = newTubes[from].pop()!;
-  newTubes[to].push(ball);
+  const sourceTube = newTubes[from];
+  const destTube = newTubes[to];
+  
+  if (sourceTube.length === 0) return newTubes;
+  
+  const ballColor = sourceTube[sourceTube.length - 1];
+  const countInSource = getConsecutiveCount(sourceTube);
+  const spaceInDest = MAX_BALLS_PER_TUBE - destTube.length;
+  
+  // In a professional Ball Sort game, we move the whole stack if it fits.
+  // If only part of the stack fits, some games move what fits, others block.
+  // The user requirement says "move all matching top balls together".
+  const actualToMove = Math.min(countInSource, spaceInDest);
+  
+  for (let i = 0; i < actualToMove; i++) {
+    const ball = sourceTube.pop()!;
+    destTube.push(ball);
+  }
+  
   return newTubes;
 }
 

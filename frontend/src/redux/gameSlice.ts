@@ -15,6 +15,7 @@ interface GameState {
   isPlaying: boolean;
   hintFrom: number | null;
   hintTo: number | null;
+  perfectTubeIndex: number | null;
 }
 
 function getInitialBoard(level: number): GameBoard {
@@ -39,6 +40,7 @@ const initialState: GameState = {
   isPlaying: false,
   hintFrom: null,
   hintTo: null,
+  perfectTubeIndex: null,
 };
 
 const gameSlice = createSlice({
@@ -66,9 +68,10 @@ const gameSlice = createSlice({
     selectTube(state, action: PayloadAction<number>) {
       const tubeIndex = action.payload;
 
-      // Clear hint when player interacts
+      // Clear hint and perfect effect when player interacts
       state.hintFrom = null;
       state.hintTo = null;
+      state.perfectTubeIndex = null;
 
       // If no tube selected yet, select this one (if it has balls)
       if (state.selectedTube === null) {
@@ -92,6 +95,13 @@ const gameSlice = createSlice({
         // Execute the move
         state.tubes = executeMove(state.tubes, state.selectedTube, tubeIndex);
         state.moves += 1;
+        
+        // Check if this was a "Perfect Move" (completing a tube)
+        const destTube = state.tubes[tubeIndex];
+        if (destTube.length === 4 && destTube.every(b => b === destTube[0])) {
+          state.perfectTubeIndex = tubeIndex;
+        }
+
         state.selectedTube = null;
 
         // Check win condition
@@ -118,6 +128,7 @@ const gameSlice = createSlice({
         state.isWon = false;
         state.hintFrom = null;
         state.hintTo = null;
+        state.perfectTubeIndex = null;
       }
     },
 
@@ -132,6 +143,7 @@ const gameSlice = createSlice({
       state.isPlaying = true;
       state.hintFrom = null;
       state.hintTo = null;
+      state.perfectTubeIndex = null;
     },
 
     /** Go to next level */
@@ -146,6 +158,7 @@ const gameSlice = createSlice({
       state.isPlaying = true;
       state.hintFrom = null;
       state.hintTo = null;
+      state.perfectTubeIndex = null;
     },
 
     /** Load a specific level */
@@ -164,6 +177,7 @@ const gameSlice = createSlice({
       state.isPlaying = true;
       state.hintFrom = null;
       state.hintTo = null;
+      state.perfectTubeIndex = null;
     },
 
     /** Show a hint (highlight from/to tubes) */
