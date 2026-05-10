@@ -4,6 +4,7 @@ import Ball from './Ball';
 
 interface TubeProps {
   balls: number[];
+  ballIds: string[];
   index: number;
   isSelected: boolean;
   isValidTarget?: boolean;
@@ -16,7 +17,7 @@ interface TubeProps {
 /**
  * Renders a vertical test tube with stacked balls
  */
-const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, isHintFrom, isHintTo, isPerfect, onClick }) => {
+const Tube: React.FC<TubeProps> = ({ balls, ballIds, index, isSelected, isValidTarget, isHintFrom, isHintTo, isPerfect, onClick }) => {
   const isComplete = balls.length === 4 && balls.every(b => b === balls[0]);
 
   let borderClass = '';
@@ -27,7 +28,7 @@ const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, is
 
   return (
     <motion.div
-      className={`tube-container ${borderClass}`}
+      className={`tube-container ${borderClass} ${isSelected ? 'z-50' : 'z-10'}`}
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: 30 }}
@@ -45,23 +46,27 @@ const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, is
               if (balls[i] === topColor) count++;
               else break;
             }
-            return Array.from({ length: count }).map((_, i) => (
-              <motion.div
-                key={`floating-${i}`}
-                className={`ball ball-${topColor} ball-floating`}
-                style={{ 
-                  marginBottom: -8 // Stagger them slightly
-                }}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: -i * 5, opacity: 1 }}
-                transition={{ 
-                  type: 'spring', 
-                  stiffness: 400, 
-                  damping: 25,
-                  delay: i * 0.05 
-                }}
-              />
-            ));
+            return Array.from({ length: count }).map((_, i) => {
+              const ballIndex = balls.length - count + i;
+              return (
+                <motion.div
+                  key={`floating-${ballIds[ballIndex]}`}
+                  layoutId={ballIds[ballIndex]}
+                  className={`ball ball-${topColor} ball-floating`}
+                  style={{ 
+                    marginBottom: -8 // Stagger them slightly
+                  }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: -i * 5, opacity: 1 }}
+                  transition={{ 
+                    type: 'spring', 
+                    stiffness: 400, 
+                    damping: 25,
+                    delay: i * 0.05 
+                  }}
+                />
+              );
+            });
           })()}
         </div>
       )}
@@ -110,7 +115,8 @@ const Tube: React.FC<TubeProps> = ({ balls, index, isSelected, isValidTarget, is
             
             return (
               <Ball
-                key={`${index}-${ballIndex}`}
+                key={ballIds[ballIndex]}
+                id={ballIds[ballIndex]}
                 color={color}
                 index={ballIndex}
                 isFloating={false}

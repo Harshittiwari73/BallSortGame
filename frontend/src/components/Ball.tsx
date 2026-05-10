@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface BallProps {
+  id: string;
   color: number;
   isFloating?: boolean;
   index: number;
@@ -10,7 +11,7 @@ interface BallProps {
 /**
  * Renders a single colored ball with gradient and shine effect
  */
-const Ball: React.FC<BallProps> = ({ color, isFloating = false, index }) => {
+const Ball: React.FC<BallProps> = ({ id, color, isFloating = false, index }) => {
   return (
     <motion.div
       className={`ball ball-${color} ${isFloating ? 'ball-floating' : ''}`}
@@ -18,13 +19,13 @@ const Ball: React.FC<BallProps> = ({ color, isFloating = false, index }) => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{
         type: 'spring',
-        stiffness: 300,
-        damping: 20,
+        stiffness: 400,
+        damping: 25,
         delay: index * 0.05,
       }}
       whileHover={{ scale: 1.05 }}
       layout
-      layoutId={`ball-${color}-${index}-${Math.random().toString(36).substr(2, 5)}`}
+      layoutId={id}
     />
   );
 };
