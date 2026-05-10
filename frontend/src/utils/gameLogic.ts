@@ -16,22 +16,22 @@ export const MAX_BALLS_PER_TUBE = 4;
  */
 export function isValidMove(tubes: GameBoard, from: number, to: number): boolean {
   if (from === to) return false;
-  
+
   const sourceTube = tubes[from];
   const destTube = tubes[to];
-  
+
   // Source must have balls
   if (sourceTube.length === 0) return false;
-  
+
   // Destination must not be full
   if (destTube.length >= MAX_BALLS_PER_TUBE) return false;
-  
+
   // Destination must be empty or top colors must match
   if (destTube.length === 0) return true;
-  
+
   const sourceTop = sourceTube[sourceTube.length - 1];
   const destTop = destTube[destTube.length - 1];
-  
+
   return sourceTop === destTop;
 }
 
@@ -58,23 +58,23 @@ export function executeMove(tubes: GameBoard, from: number, to: number): GameBoa
   const newTubes = tubes.map(tube => [...tube]);
   const sourceTube = newTubes[from];
   const destTube = newTubes[to];
-  
+
   if (sourceTube.length === 0) return newTubes;
-  
-  const ballColor = sourceTube[sourceTube.length - 1];
+
+  // const ballColor = sourceTube[sourceTube.length - 1];
   const countInSource = getConsecutiveCount(sourceTube);
   const spaceInDest = MAX_BALLS_PER_TUBE - destTube.length;
-  
+
   // In a professional Ball Sort game, we move the whole stack if it fits.
   // If only part of the stack fits, some games move what fits, others block.
   // The user requirement says "move all matching top balls together".
   const actualToMove = Math.min(countInSource, spaceInDest);
-  
+
   for (let i = 0; i < actualToMove; i++) {
     const ball = sourceTube.pop()!;
     destTube.push(ball);
   }
-  
+
   return newTubes;
 }
 
@@ -86,7 +86,7 @@ export function checkWinCondition(tubes: GameBoard): boolean {
   for (const tube of tubes) {
     if (tube.length === 0) continue; // Empty tubes are OK
     if (tube.length !== MAX_BALLS_PER_TUBE) return false;
-    
+
     const color = tube[0];
     if (!tube.every(ball => ball === color)) return false;
   }

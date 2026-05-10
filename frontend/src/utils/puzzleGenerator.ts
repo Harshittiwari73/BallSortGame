@@ -1,5 +1,5 @@
 import type { GameBoard, LevelConfig } from '../types';
-import { MAX_BALLS_PER_TUBE, checkWinCondition, executeMove } from './gameLogic';
+import { MAX_BALLS_PER_TUBE, checkWinCondition } from './gameLogic';
 
 // ============================================
 // PUZZLE GENERATOR - Generates solvable puzzles
@@ -18,7 +18,7 @@ export const DIFFICULTY_PRESETS = {
  * and applying random reverse moves
  */
 // Helper for puzzle generation: reverse move logic
-function isValidReverseMove(board: GameBoard, from: number, to: number): boolean {
+/*function isValidReverseMove(board: GameBoard, from: number, to: number): boolean {
   if (from === to) return false;
   const fromTube = board[from];
   const toTube = board[to];
@@ -39,7 +39,7 @@ function isValidReverseMove(board: GameBoard, from: number, to: number): boolean
   if (fromTube.length === 1 && toTube.length === 0) return false;
   
   return true;
-}
+}*/
 
 /**
  * Check if a level is too easy (e.g. a tube already has 3 or 4 matching balls)
@@ -56,7 +56,7 @@ function isLevelTooEasy(board: GameBoard): boolean {
 
 export function generatePuzzle(colorCount: number, emptyTubes: number = 2, maxRetries: number = 100): GameBoard {
   const totalTubes = colorCount + emptyTubes;
-  
+
   // Start with solved state
   const solved: GameBoard = [];
   for (let color = 1; color <= colorCount; color++) {
@@ -65,11 +65,11 @@ export function generatePuzzle(colorCount: number, emptyTubes: number = 2, maxRe
   for (let i = 0; i < emptyTubes; i++) {
     solved.push([]);
   }
-  
+
   let current = solved.map(t => [...t]);
   // Increase shuffle moves for better mixing
-  const shuffleMoves = colorCount * 150; 
-  
+  const shuffleMoves = colorCount * 150;
+
   for (let i = 0; i < shuffleMoves; i++) {
     const validMoves: [number, number][] = [];
     for (let from = 0; from < totalTubes; from++) {
@@ -79,26 +79,26 @@ export function generatePuzzle(colorCount: number, emptyTubes: number = 2, maxRe
         if (from === to) continue;
         if (current[from].length === 0) continue;
         if (current[to].length >= MAX_BALLS_PER_TUBE) continue;
-        
+
         // Strategy: avoid putting the same color on top of itself too much in reverse
         // because that makes it "easier" to solve later.
         const ball = current[from][current[from].length - 1];
         const destTop = current[to].length > 0 ? current[to][current[to].length - 1] : null;
-        
+
         if (ball === destTop && Math.random() > 0.2) continue; // Discourage same-color stacks in reverse
-        
+
         validMoves.push([from, to]);
       }
     }
-    
+
     if (validMoves.length === 0) break;
-    
+
     const [from, to] = validMoves[Math.floor(Math.random() * validMoves.length)];
     // Manual move to avoid multi-ball logic during shuffle
     const ball = current[from].pop()!;
     current[to].push(ball);
   }
-  
+
   // Check if fully solved tube exists or if it's too easy
   const hasFullySolvedTube = current.some(t => t.length === MAX_BALLS_PER_TUBE && t.every(b => b === t[0]));
   const tooEasy = isLevelTooEasy(current);
@@ -106,7 +106,7 @@ export function generatePuzzle(colorCount: number, emptyTubes: number = 2, maxRe
   if ((checkWinCondition(current) || hasFullySolvedTube || tooEasy) && maxRetries > 0) {
     return generatePuzzle(colorCount, emptyTubes, maxRetries - 1);
   }
-  
+
   return current;
 }
 
@@ -130,10 +130,10 @@ export function generateLevelConfig(levelNum: number): LevelConfig {
   else if (levelNum <= 150) difficulty = 2;
   else if (levelNum <= 350) difficulty = 3;
   else difficulty = 4;
-  
+
   const preset = DIFFICULTY_PRESETS[difficulty as keyof typeof DIFFICULTY_PRESETS];
   const board = generatePuzzle(preset.colors, preset.emptyTubes);
-  
+
   return {
     id: levelNum,
     difficulty,
