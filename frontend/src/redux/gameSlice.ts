@@ -16,6 +16,7 @@ interface GameState {
   hintFrom: number | null;
   hintTo: number | null;
   perfectTubeIndex: number | null;
+  isPaused: boolean;
 }
 
 function getInitialBoard(level: number): GameBoard {
@@ -41,6 +42,7 @@ const initialState: GameState = {
   hintFrom: null,
   hintTo: null,
   perfectTubeIndex: null,
+  isPaused: false,
 };
 
 const gameSlice = createSlice({
@@ -52,14 +54,19 @@ const gameSlice = createSlice({
       state.isPlaying = true;
     },
 
-    /** Pause the game */
+    /** Pause the game (manual stop) */
     pauseGame(state) {
       state.isPlaying = false;
     },
 
+    /** Set pause state triggered by visibility/focus (auto pause) */
+    setPaused(state, action: PayloadAction<boolean>) {
+      state.isPaused = action.payload;
+    },
+
     /** Increment timer by 1 second */
     tick(state) {
-      if (state.isPlaying && !state.isWon) {
+      if (state.isPlaying && !state.isWon && !state.isPaused) {
         state.timer += 1;
       }
     },
@@ -144,6 +151,7 @@ const gameSlice = createSlice({
       state.hintFrom = null;
       state.hintTo = null;
       state.perfectTubeIndex = null;
+      state.isPaused = false;
     },
 
     /** Go to next level */
@@ -159,6 +167,7 @@ const gameSlice = createSlice({
       state.hintFrom = null;
       state.hintTo = null;
       state.perfectTubeIndex = null;
+      state.isPaused = false;
     },
 
     /** Load a specific level */
@@ -178,6 +187,7 @@ const gameSlice = createSlice({
       state.hintFrom = null;
       state.hintTo = null;
       state.perfectTubeIndex = null;
+      state.isPaused = false;
     },
 
     /** Show a hint (highlight from/to tubes) */
@@ -203,6 +213,7 @@ export const {
   nextLevel,
   loadLevel,
   setHint,
+  setPaused,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
