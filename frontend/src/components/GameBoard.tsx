@@ -7,6 +7,7 @@ import { isValidMove } from '../utils/gameLogic';
 
 /**
  * Game board - renders all tubes in a responsive grid layout
+ * Tubes scale with viewport on mobile to prevent overflow
  */
 const GameBoard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,15 +27,25 @@ const GameBoard: React.FC = () => {
 
   return (
     <motion.div
-      className="flex justify-center items-center w-full px-4 py-8"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding: 'clamp(12px, 3vw, 28px) clamp(10px, 3vw, 16px)',
+        overflowX: 'hidden',
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className={`grid ${gridCols} gap-4 md:gap-6`}>
+      <div
+        className={`grid ${gridCols}`}
+        style={{ gap: 'clamp(8px, 2.5vw, 20px)' }}
+      >
         {tubes.map((tube, index) => {
           const isValidTarget = selectedTube !== null && selectedTube !== index && isValidMove(tubes, selectedTube, index);
-          
+
           return (
             <Tube
               key={index}

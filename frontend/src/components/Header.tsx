@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 /**
  * Game header with level, moves, timer, coins, and controls
+ * Fully responsive for mobile and desktop
  */
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,36 +22,56 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full px-4 py-3">
-      <div className="glass-card px-4 py-3 flex items-center justify-between max-w-2xl mx-auto">
+    <header style={{ width: '100%', padding: 'clamp(8px, 2.5vw, 12px) clamp(10px, 3vw, 16px)' }}>
+      <div
+        className="glass-card"
+        style={{
+          padding: 'clamp(8px, 2.5vw, 12px) clamp(10px, 3vw, 16px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          maxWidth: '720px',
+          margin: '0 auto',
+          gap: 'clamp(6px, 2vw, 12px)',
+        }}
+      >
         {/* Left: Back & Level */}
-        <div className="flex items-center gap-3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(6px, 2vw, 12px)', flexShrink: 0 }}>
           <button
             onClick={() => navigate('/')}
             className="btn-icon"
             title="Back to Home"
+            style={{ flexShrink: 0 }}
           >
             ←
           </button>
           <div>
-            <p className="text-xs opacity-50 uppercase tracking-wider">Level</p>
-            <p className="text-lg font-bold" style={{ color: 'var(--accent)' }}>{level}</p>
+            <p style={{ fontSize: 'clamp(9px, 2.2vw, 11px)', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Level</p>
+            <p style={{ fontSize: 'clamp(14px, 4vw, 18px)', fontWeight: 700, color: 'var(--accent)' }}>{level}</p>
           </div>
         </div>
 
         {/* Center: Stats */}
-        <div className="flex items-center gap-6">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'clamp(10px, 3.5vw, 24px)',
+            flex: 1,
+            justifyContent: 'center',
+          }}
+        >
           <div className="text-center">
-            <p className="text-xs opacity-50">Moves</p>
-            <p className="text-lg font-semibold">{moves}</p>
+            <p style={{ fontSize: 'clamp(9px, 2.2vw, 11px)', opacity: 0.5 }}>Moves</p>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 18px)', fontWeight: 600 }}>{moves}</p>
           </div>
           <div className="text-center">
-            <p className="text-xs opacity-50">Time</p>
-            <p className="text-lg font-semibold font-mono">{formatTime(timer)}</p>
+            <p style={{ fontSize: 'clamp(9px, 2.2vw, 11px)', opacity: 0.5 }}>Time</p>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 18px)', fontWeight: 600, fontFamily: 'monospace' }}>{formatTime(timer)}</p>
           </div>
           <div className="text-center">
-            <p className="text-xs opacity-50">Coins</p>
-            <p className="text-lg font-semibold text-yellow-400">🪙 {user?.coins ?? 0}</p>
+            <p style={{ fontSize: 'clamp(9px, 2.2vw, 11px)', opacity: 0.5 }}>Coins</p>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 18px)', fontWeight: 600, color: '#facc15' }}>🪙 {user?.coins ?? 0}</p>
           </div>
         </div>
 
@@ -59,6 +80,7 @@ const Header: React.FC = () => {
           onClick={() => dispatch(toggleDarkMode())}
           className="btn-icon"
           title="Toggle Theme"
+          style={{ flexShrink: 0 }}
         >
           {darkMode ? '☀️' : '🌙'}
         </button>

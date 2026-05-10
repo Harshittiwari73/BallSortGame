@@ -30,11 +30,29 @@ const GameScreen: React.FC = () => {
   }, [isPlaying, isWon, dispatch]);
 
   return (
-    <div className="game-bg min-h-screen flex flex-col">
+    <div
+      className="game-bg overflow-x-hidden"
+      style={{
+        minHeight: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowX: 'hidden',
+      }}
+    >
       <Header />
 
-      {/* Game board centered */}
-      <div className="flex-1 flex flex-col items-center justify-center">
+      {/* Game board centered with flex-1 to fill remaining space */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflowX: 'hidden',
+          width: '100%',
+        }}
+      >
         <GameBoard />
         <GameControls />
       </div>

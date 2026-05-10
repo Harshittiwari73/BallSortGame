@@ -30,9 +30,21 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div className="game-bg min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+    <div
+      className="game-bg overflow-x-hidden"
+      style={{
+        minHeight: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'clamp(12px, 4vw, 32px) clamp(12px, 4vw, 32px)',
+        overflowX: 'hidden',
+      }}
+    >
       <motion.div 
-        className="glass-card w-full max-w-[420px] p-8 sm:p-10 relative overflow-hidden flex flex-col" 
+        className="glass-card w-full relative overflow-hidden flex flex-col" 
+        style={{ maxWidth: 'min(420px, 100%)', padding: 'clamp(20px, 5vw, 40px)' }} 
         initial={{ opacity: 0, scale: 0.95, y: 20 }} 
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -66,19 +78,19 @@ const LoginScreen: React.FC = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase">Username</label>
-              <input type="text" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-sm" value={username} onChange={e => setUsername(e.target.value)} placeholder="e.g. ProSorter99" required minLength={3} />
+              <input type="text" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={username} onChange={e => setUsername(e.target.value)} placeholder="e.g. ProSorter99" required minLength={3} />
             </div>
             
             {isRegister && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="flex flex-col gap-1.5 overflow-hidden">
                 <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Email</label>
-                <input type="email" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-sm" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
+                <input type="email" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
               </motion.div>
             )}
             
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-white/70 tracking-wider ml-1 uppercase mt-1">Password</label>
-              <input type="password" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20 text-sm" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
+              <input type="password" className="w-full bg-black/20 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all placeholder:text-white/20" style={{ fontSize: '16px' }} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
             </div>
             
             <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold rounded-xl py-4 mt-4 transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] active:scale-[0.98]" disabled={loading}>
