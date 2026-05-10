@@ -37,7 +37,7 @@ const GameScreen: React.FC = () => {
       <div className="flex-1 flex flex-col items-center justify-center overflow-hidden w-full relative">
         <GameBoard />
         <div className="w-full max-w-md px-2 sm:px-4 pb-4">
-           <GameControls />
+          <GameControls />
         </div>
       </div>
 
